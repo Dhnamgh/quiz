@@ -15,13 +15,13 @@
     iframe{
       position:absolute; inset:0; width:100%; height:100%; border:0; background:#fff;
     }
-    /* 🔒 Overlay chặn click góc phải dưới (nơi có nút Fullscreen/toolbar) */
+    /* 🔒 Overlay Fullscreen */
     .blocker{
       position:absolute; right:0; bottom:0;
       width:100px; height:100px;  /* desktop */
       pointer-events:auto; background:transparent;
     }
-    /* Mobile nhỏ thì giảm kích thước blocker */
+    /* Mobile tự giảm kích thước blocker */
     @media (max-width:600px){
       .blocker{ width:72px; height:72px; }
     }
