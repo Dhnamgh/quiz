@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hệ thống trắc nghiệm trực tuyến</title>
+  <meta name="robots" content="noindex, follow">
+  <style>
+    :root { --bg:#0e1117; --card:#111827; --text:#e6e6e6; --accent:#1e90ff; }
+    html, body { height:100%; margin:0; background:var(--bg); color:var(--text); }
+    .wrap { height:100%; display:flex; flex-direction:column; }
+    header {
+      padding:10px 14px; background:var(--accent); color:#fff; font-weight:600;
+      box-shadow:0 2px 6px rgba(0,0,0,.25);
+    }
+    .frame {
+      position:relative; flex:1 1 auto; min-height:60vh; background:var(--card);
+    }
+    iframe {
+      position:absolute; inset:0; width:100%; height:100%; border:0;
+      background:#fff;
+    }
+    .loading {
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      color:#9aa4af; font:500 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    .loading .dot { width:8px; height:8px; margin:0 3px; border-radius:50%; background:#9aa4af; animation:b 1.1s infinite ease-in-out; }
+    .loading .dot:nth-child(2){animation-delay:.15s}.loading .dot:nth-child(3){animation-delay:.3s}
+    @keyframes b { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }
+    footer { padding:8px 12px; text-align:center; opacity:.65; font-size:12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>Hệ thống trắc nghiệm trực tuyến</header>
+    <div class="frame">
+      <div class="loading" id="loader">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>&nbsp;Đang tải bài thi…
+      </div>
+      <!-- 🔒 Ẩn toàn bộ toolbar/Fullscreen/hồ sơ của Streamlit Cloud -->
+      <iframe
+        id="quiz"
+        src="https://appmcq.streamlit.app/?embed=true&embed_options=show_toolbar=false"
+        allow="clipboard-read; clipboard-write"
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </div>
+    <footer>© Hệ thống trắc nghiệm trực tuyến</footer>
+  </div>
+
+  <script>
+    // Ẩn màn hình loading khi iframe đã render
+    const f = document.getElementById('quiz');
+    const loader = document.getElementById('loader');
+    let done = false;
+    const hide = () => { if (!done) { loader.style.display = 'none'; done = true; } };
+    f.addEventListener('load', hide);
+    // Fallback 5s nếu sự kiện load bị chặn
+    setTimeout(hide, 5000);
+  </script>
+</body>
+</html>
